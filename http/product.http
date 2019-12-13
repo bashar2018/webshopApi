@@ -1,0 +1,19 @@
+GET http://localhost:8080/api/products
+Accept: application/json
+Authorization: Basic bashar@email.nl 123
+
+###
+
+POST http://localhost:8080/api/products
+Content-Type: application/json
+Accept: application/json
+Authorization: Basic bashar@email.nl 123
+
+{
+  "productid": 2,
+  "productname": "test",
+  "price":22,
+  "imagepath":"testPath"
+}
+
+###
