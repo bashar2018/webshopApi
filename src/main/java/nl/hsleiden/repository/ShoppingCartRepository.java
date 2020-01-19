@@ -9,9 +9,10 @@ import java.util.List;
 @Repository
 public interface ShoppingCartRepository extends JpaRepository<ShoppingCart, Long> {
 
-//     List<ShoppingCart> findByUserId(Long userid);
-//     ShoppingCart findByUserIdAndProductId(Long userid, Long productid);
+     List<ShoppingCart> findByUserid(Long userid);
+     ShoppingCart findShoppingCartByUseridAndProductid(Long userid, Long productid);
 //     void delete(ShoppingCart shoppingCart);
+
     @Override
      List<ShoppingCart> findAll();
 }

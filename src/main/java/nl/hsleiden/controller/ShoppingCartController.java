@@ -32,37 +32,38 @@ public class ShoppingCartController {
 
     @GetMapping("/api/shoppingcarts/{userid}")
     @JsonView(View.Public.class)
-    public Optional<ShoppingCart> getShoppingCart(@PathVariable Long userId) {
-        LOGGER.info("Fetching users with id" + userId);
-        return shoppingCartRepository.findById(userId);
+    public List<ShoppingCart> getShoppingCart(@PathVariable Long userid) {
+        LOGGER.info("Fetching users with id" + userid);
+        return shoppingCartRepository.findByUserid(userid);
     }
 
-//    @GetMapping("/api/shoppingcarts/{userid}/{productid}")
-//    @JsonView(View.Public.class)
-//    public ShoppingCart getSpecifiedShoppingCart(@PathVariable Long userid, @PathVariable Long productid) {
-//        return shoppingCartRepository.findByUserIdAndProductId(userid, productid);
-//    }
+    @GetMapping("/api/shoppingcarts/{userid}/{productid}")
+    @JsonView(View.Public.class)
+    public ShoppingCart getSpecifiedShoppingCart(@PathVariable Long userid, @PathVariable Long productid) {
+        return shoppingCartRepository.findShoppingCartByUseridAndProductid(userid, productid);
+    }
+////
+    @PostMapping("/api/shoppingcarts")
+    @JsonView(View.Public.class)
+    @PreAuthorize("hasAuthority('" + Role.USER + "')")
+    public ShoppingCart createShoppingCart(@Valid @RequestBody ShoppingCart shoppingCart) {
+        System.out.println("test");
+       return shoppingCartRepository.save(shoppingCart);
+    }
 //
-//    @PostMapping("/api/shoppingcarts")
-//    @JsonView(View.Public.class)
-//    public ShoppingCart createShoppingCart(@Valid @RequestBody ShoppingCart shoppingCart) {
-//       return shoppingCartRepository.save(shoppingCart);
-//    }
+    @DeleteMapping("/api/shoppingcarts/{userid}")
+    public void deleteShoppingCart(@PathVariable Long userid) {
+        List<ShoppingCart> shoppingCart = shoppingCartRepository.findByUserid(userid);
+        Iterator iterator = shoppingCart.iterator();
+        while (iterator.hasNext()){
+            shoppingCartRepository.delete((ShoppingCart)iterator.next());
+        }
+    }
 //
-//    @DeleteMapping("/api/shoppingcarts/{userid}")
-//    public void deleteShoppingCart(@PathVariable Long userid) {
-//        List<ShoppingCart> shoppingCart = shoppingCartRepository.findByUserId(userid);
-//        Iterator iterator = shoppingCart.iterator();
-//        while (iterator.hasNext()){
-//            shoppingCartRepository.delete((ShoppingCart)iterator.next());
-//        }
-//    }
-//
-//    @DeleteMapping("/api/shoppingcarts/{userid}/{productid}")
-//    public void deleteShoppingCartItem(@PathVariable Long userid, @PathVariable Long productid) {
-//        ShoppingCart shoppingCartItem = shoppingCartRepository.findByUserIdAndProductId(userid, productid);
-//        shoppingCartRepository.delete(shoppingCartItem);
-//    }
-//}
-//
+    @DeleteMapping("/api/shoppingcarts/{userid}/{productid}")
+    public void deleteShoppingCartItem(@PathVariable Long userid, @PathVariable Long productid) {
+        ShoppingCart shoppingCartItem = shoppingCartRepository.findShoppingCartByUseridAndProductid(userid, productid);
+        shoppingCartRepository.delete(shoppingCartItem);
+    }
 }
+

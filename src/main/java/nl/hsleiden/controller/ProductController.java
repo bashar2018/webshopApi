@@ -1,6 +1,7 @@
 package nl.hsleiden.controller;
 
 import com.fasterxml.jackson.annotation.JsonView;
+import jdk.nashorn.internal.runtime.options.LoggingOption;
 import nl.hsleiden.View;
 import nl.hsleiden.auth.Role;
 import nl.hsleiden.exception.ResourceNotFoundException;
@@ -50,22 +51,19 @@ public class ProductController {
         return productRepository.save(product);
     }
 
-//    @PutMapping("/api/products/{productid}")
-//    @PreAuthorize(" hasAuthority('" + Role.ADMIN + "')")
-//    @JsonView(View.Public.class)
-//    public Instructor updateInstructor(@PathVariable Long instructorId, @Valid @RequestBody Instructor updatedInstructor) {
-//        LOGGER.info("Updating instructor with id: " + instructorId);
-//        return instructorRepository.findById(instructorId).map(instructor -> {
-//            instructor.setFirstName(updatedInstructor.getFirstName());
-//            instructor.setInfix(updatedInstructor.getInfix());
-//            instructor.setLastName(updatedInstructor.getLastName());
-//            instructor.setEmail(updatedInstructor.getEmail());
-//            instructor.setPhoneNumber(updatedInstructor.getPhoneNumber());
-//            instructor.setNote(updatedInstructor.getNote());
-//
-//            return instructorRepository.save(instructor);
-//        }).orElseThrow(() -> new ResourceNotFoundException("Instructor not found with id " + instructorId));
-//    }
+    @PutMapping("/api/products/{productid}")
+    @PreAuthorize(" hasAuthority('" + Role.ADMIN + "')")
+    @JsonView(View.Public.class)
+    public Product updateProduct(@PathVariable Long productid, @Valid @RequestBody Product updatedProduct) {
+        LOGGER.info("updating product: "+ productid);
+        return productRepository.findById(productid).map(product -> {
+            product.setProductName(updatedProduct.getProductName());
+            product.setPrice(updatedProduct.getPrice());
+            product.setImagePath(updatedProduct.getImagePath());
+
+            return productRepository.save(product);
+        }).orElseThrow(() -> new ResourceNotFoundException("product not found with id " + productid));
+    }
 
     @DeleteMapping("/api/products/{productId}")
 //    @PreAuthorize("hasAuthority('" + Role.ADMIN + "')")
