@@ -35,14 +35,21 @@ public class Product {
     @JsonView(View.Public.class)
     private String imagePath;
 
+    @Length(max = 500)
+    @Column(name = "productbeschrijving")
+    @JsonProperty("productbeschrijving")
+    @JsonView(View.Public.class)
+    private String productbeschrijving;
+
     public Product() {
     }
 
-    public Product(long ProductId, String ProductName, double Price, String ImagePath){
+    public Product(long ProductId, String ProductName, double Price, String ImagePath, String productbeschrijving){
         this.productId = ProductId;
         this.productName = ProductName;
         this.price = Price;
         this.imagePath = ImagePath;
+        this.productbeschrijving = productbeschrijving;
     }
 
     public String getImagePath() {
@@ -72,9 +79,15 @@ public class Product {
     public double getPrice() {
         return price;
     }
+    public String getproductbeschrijving() {
+        return productbeschrijving;
+    }
 
     public void setPrice(double price) {
         this.price = price;
+    }
+    public void setProductbeschrijving(String  productbeschrijving) {
+        this.productbeschrijving = productbeschrijving;
     }
 }
 

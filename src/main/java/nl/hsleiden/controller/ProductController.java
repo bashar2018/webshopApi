@@ -40,6 +40,13 @@ public class ProductController {
         LOGGER.info("Fetching product with id" + productId);
         return productRepository.findById(productId);
     }
+//    @GetMapping("/api/products/beschrijving/{productId}")
+//    @PreAuthorize("hasAuthority('" + Role.USER + "') or hasAuthority('" + Role.ADMIN + "')")
+//    @JsonView(View.Public.class)
+//    public Optional<Product> getProductBeschrijving(@PathVariable Long productId) {
+//        LOGGER.info("Fetching product with id" + productId);
+//        return productRepository.findById(productId);
+//    }
 
     @PostMapping("/api/products")
     @PreAuthorize(" hasAuthority('" + Role.ADMIN + "')")

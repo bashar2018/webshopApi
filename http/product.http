@@ -1,4 +1,4 @@
-GET http://localhost:8080/api/products/21
+GET http://localhost:8080/api/products/beschrijving/21
 Accept: application/json
 Authorization: Basic bashar@email.nl 123
 

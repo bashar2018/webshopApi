@@ -80,7 +80,7 @@ Authorization: Basic bashar@email.nl 123
 
 ###
 
-DELETE http://localhost:8080/api/shoppingcarts/55/17
+DELETE http://localhost:8080/api/shoppingcarts/55
 Content-Type: application/json
 Accept: application/json
 Authorization: Basic joost testtest

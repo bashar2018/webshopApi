@@ -3,6 +3,7 @@ package nl.hsleiden.controller;
 import com.fasterxml.jackson.annotation.JsonView;
 import nl.hsleiden.View;
 import nl.hsleiden.auth.Role;
+import nl.hsleiden.exception.ResourceNotFoundException;
 import nl.hsleiden.model.ShoppingCart;
 import nl.hsleiden.repository.ShoppingCartRepository;
 import org.slf4j.Logger;
@@ -59,7 +60,16 @@ public class ShoppingCartController {
             shoppingCartRepository.delete((ShoppingCart)iterator.next());
         }
     }
-//
+//    @PutMapping("/api/shoppingcarts/{userid}}")
+//        @PreAuthorize(" hasAuthority('" + Role.USER + "')")
+//        @JsonView(View.Public.class)
+//        public ShoppingCart updateShopppingCart(@PathVariable Long userid,@Valid @RequestBody ShoppingCart updatedShoppingCart) {
+//            return shoppingCartRepository.findById(userid).map(shoppingCart -> {
+//                for (int i=0; shoppingCart)
+//                shoppingCart.setQuantity(updatedShoppingCart.getQuantity());
+//                return shoppingCartRepository.save(shoppingCart);
+//            }).orElseThrow(() -> new ResourceNotFoundException("product not found with id " + userid));
+//        }
     @DeleteMapping("/api/shoppingcarts/{userid}/{productid}")
     public void deleteShoppingCartItem(@PathVariable Long userid, @PathVariable Long productid) {
         ShoppingCart shoppingCartItem = shoppingCartRepository.findShoppingCartByUseridAndProductid(userid, productid);
